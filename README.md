@@ -3,7 +3,17 @@ A continuous deployment module for node.js that reads SVN repos and deploys them
 This Project is in development and not ready for active duty!
 
 
-Main module I am looking at to provide svn functionality is:
+Module I am looking at to get this done:
 
+SVN Bindings:
 https://npmjs.org/package/svn-spawn
+
+A flat file DB and ORM
+http://sequelizejs.com/
+
+Forever to run continously run the script in background without user login
+
+https://github.com/nodejitsu/forever
+
+
 
