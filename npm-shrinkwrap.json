@@ -1,0 +1,41 @@
+{
+  "name": "node-svn-continuous-deployment",
+  "version": "0.0.0",
+  "dependencies": {
+    "svn-spawn": {
+      "version": "0.1.4",
+      "from": "svn-spawn@",
+      "resolved": "https://registry.npmjs.org/svn-spawn/-/svn-spawn-0.1.4.tgz",
+      "dependencies": {
+        "easy-spawn": {
+          "version": "0.0.2",
+          "from": "easy-spawn@0.0.2",
+          "resolved": "https://registry.npmjs.org/easy-spawn/-/easy-spawn-0.0.2.tgz",
+          "dependencies": {
+            "config-obj": {
+              "version": "0.0.1",
+              "from": "config-obj@0.0.1",
+              "resolved": "https://registry.npmjs.org/config-obj/-/config-obj-0.0.1.tgz"
+            }
+          }
+        },
+        "async": {
+          "version": "0.2.10",
+          "from": "async@~0.2.9"
+        },
+        "xml2js": {
+          "version": "0.2.8",
+          "from": "xml2js@~0.2.7",
+          "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.2.8.tgz",
+          "dependencies": {
+            "sax": {
+              "version": "0.5.8",
+              "from": "sax@0.5.x",
+              "resolved": "https://registry.npmjs.org/sax/-/sax-0.5.8.tgz"
+            }
+          }
+        }
+      }
+    }
+  }
+}
