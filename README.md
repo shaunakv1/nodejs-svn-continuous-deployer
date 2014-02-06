@@ -20,3 +20,7 @@ https://github.com/nodejitsu/forever
 
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/shaunakv1/nodejs-svn-continuous-deployer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
