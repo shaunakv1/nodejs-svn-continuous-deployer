@@ -15,15 +15,18 @@ This Project is in development and not ready for active duty!
 
 ###Modules I am looking at to get this done:
 
-SVN Bindings:
+####SVN Bindings:
 https://npmjs.org/package/svn-spawn
 
-A flat file DB and ORM
+####A flat file DB and ORM
 http://sequelizejs.com/
 
-Forever to run continously run the script in background without user login
-
+####Forever
+to run continously run the script in background without user login
 https://github.com/nodejitsu/forever
+
+####SSH
+https://github.com/mscdex/ssh2
 
 ## Documentation
 _(Coming soon)_
