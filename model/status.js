@@ -14,11 +14,11 @@
 
 var db = require('../db/db.js');
 var debug = require('../lib/debug.js');
-//var config = require('../config/repos-config.js');
 
 exports.setMockDBForTesting = function(status){
   db.Status = status;
 };
+
 
 /**
  * Only called once when a new repository is detected in repos-config.js
