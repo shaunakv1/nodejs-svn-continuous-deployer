@@ -13,3 +13,8 @@ results
 
 npm-debug.log
 node_modules
+
+db/history.json
+db/status.json
+db/test_history.json
+db/test_status.json

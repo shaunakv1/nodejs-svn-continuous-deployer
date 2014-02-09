@@ -1,7 +1,8 @@
 'use strict';
 
-var status_model = require('../model/status.js');
-var Datastore = require('nedb');
+var db = require('../db/db.js');
+var status = require('../model/status.js');
+
 /*
   ======== A Handy Little Nodeunit Reference ========
   https://github.com/caolan/nodeunit
@@ -22,32 +23,40 @@ var Datastore = require('nedb');
     test.ifError(value)
 */
 
-exports.status_model = {
+exports.status = {
   setUp: function(done) {
-    //setting up mock db and assigning mock Status to status_model
-    var Status = new Datastore({ filename: './test.json', autoload: false });
-    Status.loadDatabase(function (err) {
-      if(err===null){
-        Status.ensureIndex({ fieldName: 'repo', unique: true }, function (err) {
-            if(err === null ){
-              status_model.setMockDBForTesting(Status);
-              done();
-            }
-        });
-      }
-    });
-     done();
+     db.initializeStatusDB('db/test_status.json',function () {
+       done();
+     });
+     
+  },
+
+  tearDown: function (done) {
+    db.getStatus().remove({});
+    db.getStatus().removeIndex('repo');
+    done();
   },
 
   'Create new Status': function(test) {
     test.expect(2);
     // tests here
-    status_model.createNewStatus("Test project",function (err,newRecord) {
-        test.notStrictEqual(err, null, "Create new status should not throw error");
-        if(err !== null){
-          test.equal(newRecord.repo,"Test project","New recored should be created with correct repo name");
+    status.createNewStatus("Test project",function (err,newRecord) {
+        test.strictEqual(err, null, "Create new status should not throw error");
+        test.equal(newRecord.repo, "Test project", "Create new reopsitiry status");
+        test.done();
+    });
+  },
+
+  'Status should unique for a repository name': function(test) {
+    test.expect(1);
+    
+    status.createNewStatus("Test project",function () {
+      status.createNewStatus("Test project",function (err) {
+          test.notStrictEqual(err, null, "Should not allow two statuses with same repo name");
           test.done();
-        }
+      });    
     });
   }
+
+
 };

@@ -15,17 +15,13 @@
 var db = require('../db/db.js');
 var debug = require('../lib/debug.js');
 
-exports.setMockDBForTesting = function(status){
-  db.Status = status;
-};
-
-
 /**
  * Only called once when a new repository is detected in repos-config.js
  * cb - callback function is optional will take arguements: err,newRecord
  */
 exports.createNewStatus = function (nameOfRepo,cb){
-  var status = {
+  
+  var s = {
     repo : nameOfRepo,
     currRev : -1,
     preRev : -1,
@@ -33,14 +29,8 @@ exports.createNewStatus = function (nameOfRepo,cb){
     preDeployLabel : "",
   };
 
-  db.Status.insert(status, function (err, newRecord) {   // Callback is optional
+  db.getStatus().insert(s, function (err, newRecord) {   // Callback is optional
      var callback = cb || function () {};
-     debug.log(err);
      return callback(err,newRecord);
   });
 };
-
-
-/*db.Status.insert(document, function (err, newDoc) {   // Callback is optional
-  debug.log(newDoc);
-});*/
