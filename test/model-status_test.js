@@ -26,13 +26,15 @@ var status = require('../model/status.js');
 exports.status = {
   setUp: function(done) {
      db.initializeStatusDB('db/test_status.json',function () {
+        status.create("Project A",function (err,newRecord) {});
+        status.create("Project B",function (err,newRecord) {});
        done();
      });
      
   },
 
   tearDown: function (done) {
-    db.getStatus().remove({});
+    db.getStatus().remove({},{ multi: true });
     db.getStatus().removeIndex('repo');
     done();
   },
@@ -40,7 +42,7 @@ exports.status = {
   'Create new Status': function(test) {
     test.expect(2);
     // tests here
-    status.createNewStatus("Test project",function (err,newRecord) {
+    status.create("Test project",function (err,newRecord) {
         test.strictEqual(err, null, "Create new status should not throw error");
         test.equal(newRecord.repo, "Test project", "Create new reopsitiry status");
         test.done();
@@ -49,14 +51,17 @@ exports.status = {
 
   'Status should unique for a repository name': function(test) {
     test.expect(1);
-    
-    status.createNewStatus("Test project",function () {
-      status.createNewStatus("Test project",function (err) {
-          test.notStrictEqual(err, null, "Should not allow two statuses with same repo name");
-          test.done();
-      });    
+    status.create("Project A",function (err) {
+        test.notStrictEqual(err, null, "Should not allow two statuses with same repo name");
+        test.done();
+    });    
+  },
+
+  'Find by repo name': function(test) {
+    test.expect(1);
+    status.findByRepoName("Project B",function (err, record) {
+      test.strictEqual(record.repo,"Project B", "Should find correct repo by its name");
+      test.done();
     });
   }
-
-
 };
