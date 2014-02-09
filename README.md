@@ -1,4 +1,4 @@
-# node-svn-continuous-deployment [![Build Status](https://secure.travis-ci.org/shaunakv1/node-svn-continuous-deployment.png?branch=master)](http://travis-ci.org/shaunakv1/node-svn-continuous-deployment)
+# node-svn-continuous-deployment [![Build Status](https://travis-ci.org/shaunakv1/nodejs-svn-continuous-deployer.png?branch=master)](https://travis-ci.org/shaunakv1/nodejs-svn-continuous-deployer)
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/shaunakv1/nodejs-svn-continuous-deployer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
