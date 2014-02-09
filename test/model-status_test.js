@@ -1,7 +1,7 @@
 'use strict';
 
 var db = require('../db/db.js');
-var status = require('../model/status.js');
+var status = require('../lib/status.js');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
