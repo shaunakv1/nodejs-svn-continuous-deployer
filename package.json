@@ -4,7 +4,7 @@
   "description": "A continuous deployment module for node.js that reads SVN repos and deploys them based on a deploy.js file in the project root.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "grunt nodeunit"
   },
   "repository": {
     "type": "git",
