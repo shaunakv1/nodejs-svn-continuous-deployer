@@ -19,7 +19,7 @@ var debug = require('../lib/debug.js');
  * Only called once when a new repository is detected in repos-config.js
  * cb - callback function is optional will take arguements: err,newRecord
  */
-exports.createNewStatus = function (nameOfRepo,cb){
+exports.create = function (nameOfRepo,cb){
   
   var s = {
     repo : nameOfRepo,
@@ -33,4 +33,27 @@ exports.createNewStatus = function (nameOfRepo,cb){
      var callback = cb || function () {};
      return callback(err,newRecord);
   });
+};
+
+exports.update = function (repoName,status,cb){
+  
+  // var s = {
+  //   repo : repoName,
+  //   currRev : -1,
+  //   preRev : -1,
+  //   currDeployLabel : "",
+  //   preDeployLabel : "",
+  // };
+
+  // db.getStatus().update({ repo: repoName },{ $set: s }, function (err, numReplaced) {
+  //   var callback = cb || function () {};
+  //    return callback(err,newRecord);
+  // });
+};
+
+exports.findByRepoName = function (repoName,cb) {
+  var s = db.getStatus().findOne({ repo: repoName }, function (err, record) {
+    cb(err, record);
+  });
+
 };
