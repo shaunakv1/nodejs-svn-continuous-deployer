@@ -26,8 +26,8 @@ var status = require('../model/status.js');
 exports.status = {
   setUp: function(done) {
      db.initializeStatusDB('db/test_status.json',function () {
-        status.create("Project A",function (err,newRecord) {});
-        status.create("Project B",function (err,newRecord) {});
+        status.create("Project A",function () {});
+        status.create("Project B",function () {});
        done();
      });
      
@@ -38,6 +38,8 @@ exports.status = {
     db.getStatus().removeIndex('repo');
     done();
   },
+
+  // Unit test cases begin here
 
   'Create new Status': function(test) {
     test.expect(2);
@@ -61,6 +63,57 @@ exports.status = {
     test.expect(1);
     status.findByRepoName("Project B",function (err, record) {
       test.strictEqual(record.repo,"Project B", "Should find correct repo by its name");
+      test.done();
+    });
+  },
+
+  'Update status with valid arguements':function (test) {
+    test.expect(2);
+    
+    var updateFields = {
+        currRev : 2,
+        preRev : 1,
+        currDeployLabel : "production",
+        preDeployLabel : "development"
+      };
+
+    status.update('Project A',updateFields,function (err,numUpdated) {
+      test.strictEqual(err, null, "Should not throw error");
+      test.strictEqual(numUpdated, 1, "one and just one record should be updated");
+      test.done();
+    });
+  },
+
+  'Update status with null premeters should fail':function (test) {
+    test.expect(2);
+    
+    var updateFields = {
+        currRev : 2,
+        preRev : null,
+        currDeployLabel : "production",
+        preDeployLabel : "development"
+      };
+
+    status.update('Project A',updateFields,function (err,numUpdated) {
+      test.notStrictEqual(err, null, "Should throw error");
+      test.strictEqual(numUpdated, 0, "no record should be updated");
+      test.done();
+    });
+  },
+
+  'Update status with undefined premeters should fail':function (test) {
+    test.expect(2);
+    
+    var updateFields = {
+        currRev : 2,
+        preRev : 3,
+        //currDeployLabel : "production",
+        preDeployLabel : "development"
+      };
+
+    status.update('Project A',updateFields,function (err,numUpdated) {
+      test.notStrictEqual(err, null, "Should throw error");
+      test.strictEqual(numUpdated, 0, "no record should be updated");
       test.done();
     });
   }
