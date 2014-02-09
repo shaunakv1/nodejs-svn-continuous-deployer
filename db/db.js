@@ -11,7 +11,7 @@ var History = null;
  * @return {null}
  */
 exports.initializeStatusDB = function (statusDB,cb) {
-	statusDB = statusDB || './status.json';
+	statusDB = statusDB || 'db/status.json';
 		
 	//Autoloads the databases. Any commands sent to db before this will be queued up
 	Status = new Datastore({ filename: statusDB, autoload: true });
@@ -32,7 +32,7 @@ exports.initializeStatusDB = function (statusDB,cb) {
 };
 
 exports.initializeHistoryDB = function (historyDB,cb) {
-	historyDB = historyDB || './history.json';
+	historyDB = historyDB || 'db/history.json';
 	
 	//Autoloads the databases. Any commands sent to db before this will be queued up
 	History = new Datastore({ filename: historyDB, autoload: true });
