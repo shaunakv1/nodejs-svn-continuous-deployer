@@ -35,21 +35,48 @@ exports.create = function (nameOfRepo,cb){
   });
 };
 
-exports.update = function (repoName,status,cb){
-  
-  // var s = {
-  //   repo : repoName,
-  //   currRev : -1,
-  //   preRev : -1,
-  //   currDeployLabel : "",
-  //   preDeployLabel : "",
-  // };
+/**
+ * [update updates record]
+ * @param  {string}   repoName
+ * @param  {object}  newStatus object with parameteters to update. All params must be defined. 
+ * @param  {integer} newStatus.currRev 
+ * @param  {integer} newStatus.prevRev 
+ * @param  {string}  newStatus.currDeployLabel 
+ * @param  {string}  newStatus.preDeployLabel
+ * @param  {Function} cb callback once update is done. Takes err and numReplaced params. 
+ * @return {null}
+ */
 
-  // db.getStatus().update({ repo: repoName },{ $set: s }, function (err, numReplaced) {
-  //   var callback = cb || function () {};
-  //    return callback(err,newRecord);
-  // });
+exports.update = function (repoName,newStatus,cb){  
+  //create a new update object from the received object so it can be validated and avoid injection
+  var updateFields = {
+        currRev : newStatus.currRev,
+        preRev : newStatus.preRev,
+        currDeployLabel : newStatus.currDeployLabel,
+        preDeployLabel : newStatus.preDeployLabel,
+      };
+  
+  //first check if all fields are defined and or not null else scream! 
+  for (var property in updateFields) {
+      if (typeof updateFields[property] === "undefined" || updateFields[property] === null ) {
+        var callback = cb || function () {};
+        return callback({"message": property+ "needs to be set. It is null or undefined"}, 0);    
+      }
+  }
+  
+  //now run the update on database    
+  db.getStatus().update({ repo: repoName },{ $set: updateFields }, function (err, numReplaced) {
+    var callback = cb || function () {};
+     return callback(err,numReplaced);
+  });
 };
+
+/**
+ * [findByRepoName Find the states of a repository using its name]
+ * @param  {string}   repoName
+ * @param  {Function} cb Callback to receive the found record. takes err and record parameters. 
+ * @return {null}
+ */
 
 exports.findByRepoName = function (repoName,cb) {
   var s = db.getStatus().findOne({ repo: repoName }, function (err, record) {
