@@ -19,8 +19,8 @@ This Project is in development and not ready for active duty!
 ####SVN Bindings:
 https://npmjs.org/package/svn-spawn
 
-####A flat file DB and ORM
-http://sequelizejs.com/
+####A flat file DB
+https://github.com/louischatriot/nedb
 
 ####Forever
 to run continously run the script in background without user login
