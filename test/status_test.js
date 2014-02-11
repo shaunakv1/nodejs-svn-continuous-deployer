@@ -26,17 +26,19 @@ var status = require('../lib/status.js');
 exports.status = {
   setUp: function(done) {
      db.initializeStatusDB('db/test_status.json',function () {
-        status.create("Project A",function () {});
-        status.create("Project B",function () {});
+       status.create("Project A",function () {});
+       status.create("Project B",function () {});
        done();
      });
-     
+
   },
 
   tearDown: function (done) {
-    db.getStatus().remove({},{ multi: true });
-    db.getStatus().removeIndex('repo');
-    done();
+    db.getStatus().remove({ $where: function () { return true; } },{ multi: true },function () {
+      db.getStatus().removeIndex('repo',function () {
+        done();
+      });
+    });
   },
 
   // Unit test cases begin here
@@ -56,7 +58,7 @@ exports.status = {
     status.create("Project A",function (err) {
         test.notStrictEqual(err, null, "Should not allow two statuses with same repo name");
         test.done();
-    });    
+    });
   },
 
   'Find by repo name': function(test) {
@@ -69,7 +71,7 @@ exports.status = {
 
   'Update status with valid arguements':function (test) {
     test.expect(2);
-    
+
     var updateFields = {
         currRev : 2,
         preRev : 1,
@@ -86,7 +88,7 @@ exports.status = {
 
   'Update status with null premeters should fail':function (test) {
     test.expect(2);
-    
+
     var updateFields = {
         currRev : 2,
         preRev : null,
@@ -103,7 +105,7 @@ exports.status = {
 
   'Update status with undefined premeters should fail':function (test) {
     test.expect(2);
-    
+
     var updateFields = {
         currRev : 2,
         preRev : 3,
