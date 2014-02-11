@@ -35,12 +35,19 @@ exports.projects = {
 
   'Get all Projects': function(test) {
     test.expect(5);
-    var p = projects.getProjects();
+    var p = projects.all();
     test.equal((p instanceof Array), true, "Should return a array");
     test.equal((p.length > 0 ) , true, "Should have at least one project");
     test.equal((typeof  p[0].name !== "undefined" &&  p[0].name !== null ),true, "should be defined and not null");
     test.equal((typeof  p[0].repoUrl !== "undefined" &&  p[0].repoUrl !== null ),true, "should be defined and not null");
     test.equal((typeof  p[0].branch !== "undefined" &&  p[0].branch !== null ),true, "should be defined and not null");
+    test.done();
+  },
+
+  'Find a project by name': function(test) {
+    test.expect(1);
+    var p = projects.getProjetByName("Project A");
+    test.equal(p.name,"Project A", "Should find correct projet");
     test.done();
   }
 };
