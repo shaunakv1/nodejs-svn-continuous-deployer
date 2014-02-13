@@ -29,6 +29,10 @@ https://github.com/nodejitsu/forever
 ####SSH
 https://github.com/mscdex/ssh2
 
+####File change monitoring for Svn post commit hook:
+
+https://github.com/paulmillr/chokidar
+
 ## Documentation
 _(Coming soon)_
 
