@@ -4,6 +4,7 @@ var Deployer = require('../lib/deployer.js').Deployer;
 var servers = require('../config/servers-config.json');
 var fs = require('fs');
 var SSH = require('simple-ssh');
+
 /*
   ======== A Handy Little Nodeunit Reference ========
   https://github.com/caolan/nodeunit
@@ -102,24 +103,24 @@ exports.deployer = {
   'Donot deploy if disabled': function(test) {
     test.expect(1);
     deployConfig.disable = true;
-    var deployer = new Deployer(false);
+    var deployer = new Deployer(true);
     test.equal(deployer.pickServerUsingSvnLog(deployConfig,"[dev] sample commit"), false, "Donot deploy if disbled from deploy.js ");
     test.done();
   },
 
   'Donot deploy if requested stage is not configured in servers-config.js': function(test) {
     test.expect(1);
-    var deployer = new Deployer(false);
+    var deployer = new Deployer(true);
     test.equal(deployer.pickServerUsingSvnLog(deployConfig,"[blah] sample commit"), false, " [blah] stage Should fail");
     test.done();
   },
 
   'Return correct server config based on label in comment': function(test) {
-    var deployer = new Deployer(false);
+    var deployer = new Deployer(true);
     test.expect(servers.length);
     for (var stage in servers) {
       var server = servers[stage];
-      var s = deployer.pickServerUsingSvnLog(deployConfig,"["+stage+"] sample commit");
+      var s = deployer.pickServerUsingSvnLog(deployConfig,"["+stage+"] sample commit").server;
       test.equal(s.host, server.host,"correct server should be returned for stage"+stage);
     }
     test.done();
