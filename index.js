@@ -27,22 +27,22 @@ db.initializeStatusDB();
                 console.log('Project Head Revision:'+ repo.headRevision());
                 var repoHeadRevision = repo.headRevision();
                 Status.findByRepoName(project.name,function (err,status) {
-                    debug.log(repo);
                     //TODO:  if Head Revision of this project is ahead of curRev of status
                     if(status.currRev < repoHeadRevision){
                         console.log(project.name+' needs to be deployed..');
                         //TODO:  Check project's deploy.js that should be checked in with the project in the svn.
-                        repo.exportDeployConfig(project.name,function(err,deployConfig){
+                        repo.exportDeployConfig(project,function(err,deployConfig){
                             //if error notify project owner as deploy config missing
                              if(err) notifications.deployConfigMissing(project,err.message);
                              else{
                                 //deploy this repo's latest copy
                                 new Deployer(project,repo,deployConfig,function () {
                                     deployConfig.destroy();
+                                    //TODO:  Update the status to reflect the current
                                 });
                              }
                         });
-                        //TODO:  Update the status to reflect the current
+                        
                     }
                 });
             });

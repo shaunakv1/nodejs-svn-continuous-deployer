@@ -1,0 +1,22 @@
+{
+	"dev":{
+		"host": "georati.com",
+		"user": "ubuntu",
+		"port": 22,
+		"keyPath": "/Users/shaunak/.ssh/georati.pem"
+	},
+
+	"qa":{
+		"host": "qa.georati.com",
+		"user": "ubuntu",
+		"port": 22,
+		"keyPath": "/Users/shaunak/.ssh/georati.pem"
+	},
+
+	"prod":{
+		"host": "prod.georati.com",
+		"user": "ubuntu",
+		"port": 22,
+		"keyPath": "/Users/shaunak/.ssh/georati.pem"
+	}
+}
