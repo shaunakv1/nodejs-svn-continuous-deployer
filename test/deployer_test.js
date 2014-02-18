@@ -104,7 +104,7 @@ exports.deployer = {
     test.expect(1);
     deployConfig.disable = true;
     var deployer = new Deployer(true);
-    test.equal(deployer.pickServerUsingSvnLog(deployConfig,"[dev] sample commit"), false, "Donot deploy if disbled from deploy.js ");
+    test.equal(deployer.pickServerUsingSvnLog(deployConfig,"[dev] test commit to deploy to dev"), false, "Donot deploy if disbled from deploy.js ");
     test.done();
   },
 
